@@ -1,12 +1,12 @@
 // SCENE DEFINITIONS WITH SPECIFIC DURATIONS (in milliseconds)
 const SCENES = [
-  { id: 'scene-1', duration: 7500 }, // Scene 1: Divine Opening
-  { id: 'scene-2', duration: 8000 }, // Scene 2: Dharamshala Establishing
-  { id: 'scene-3', duration: 8000 }, // Scene 3: Royal Palace Reveal
-  { id: 'scene-4', duration: 8000 }, // Scene 4: Bride & Groom Reveal
-  { id: 'scene-5', duration: 8500 }, // Scene 5: Wedding Events Timeline
-  { id: 'scene-6', duration: 8000 }, // Scene 6: Venue Reveal
-  { id: 'scene-7', duration: 10000 } // Scene 7: Grand Finale
+  { id: 'scene-1', duration: 4000 }, // Scene 1: Divine Opening
+  { id: 'scene-2', duration: 4500 }, // Scene 2: Dharamshala Establishing
+  { id: 'scene-3', duration: 4500 }, // Scene 3: Royal Palace Reveal
+  { id: 'scene-4', duration: 4500 }, // Scene 4: Bride & Groom Reveal
+  { id: 'scene-5', duration: 25000 }, // Scene 5: Wedding Events Timeline (longer reading time)
+  { id: 'scene-6', duration: 6000 }, // Scene 6: Venue Reveal
+  { id: 'scene-7', duration: 8000 } // Scene 7: Grand Finale
 ];
 
 // STATE MANAGEMENT
