@@ -146,6 +146,13 @@ function goToScene(index) {
   
   updateNavigationDots();
   
+  // Handle events timeline auto-scroll
+  if (index === 4) {
+    startEventsAutoScroll();
+  } else {
+    stopEventsAutoScroll();
+  }
+  
   if (isPlaying) {
     startSceneTimer(SCENES[currentSceneIndex].duration);
   }
@@ -170,6 +177,9 @@ function pauseFilm() {
   iconPause.classList.add('hidden');
   iconResume.classList.remove('hidden');
   stopDrone();
+  
+  // Stop auto-scroll when paused
+  cancelAnimationFrame(autoScrollRAF);
 }
 
 // Resume Film Playback
@@ -183,7 +193,78 @@ function resumeFilm() {
     startDrone();
   }
   
+  // Resume auto-scroll if we are on Scene 5
+  if (currentSceneIndex === 4) {
+    startEventsAutoScroll();
+  }
+  
   startSceneTimer(SCENES[currentSceneIndex].duration);
+}
+
+// ==========================================
+// 1B. AUTO-SCROLL EVENTS CONTROLLER
+// ==========================================
+let autoScrollCancel = false;
+let autoScrollRAF = null;
+
+function startEventsAutoScroll() {
+  const list = document.querySelector('.events-list');
+  if (!list) return;
+  
+  // Reset scrolling state
+  list.scrollTop = 0;
+  autoScrollCancel = false;
+  cancelAnimationFrame(autoScrollRAF);
+  
+  // Cancel auto-scroll if the guest scrolls manually (mouse wheel, touch, or click)
+  const stopScroll = () => {
+    autoScrollCancel = true;
+  };
+  list.addEventListener('wheel', stopScroll, { once: true });
+  list.addEventListener('touchstart', stopScroll, { once: true });
+  list.addEventListener('mousedown', stopScroll, { once: true });
+
+  // Wait 2.5 seconds initially before beginning auto-scroll
+  setTimeout(() => {
+    if (currentSceneIndex !== 4 || !isPlaying || autoScrollCancel) return;
+    
+    const maxScroll = list.scrollHeight - list.clientHeight;
+    if (maxScroll <= 0) return;
+    
+    // Scroll slowly over 18 seconds of the 25-second slide duration
+    const scrollDuration = 18000; 
+    const startTime = Date.now();
+    const startScrollTop = list.scrollTop;
+    
+    function step() {
+      if (currentSceneIndex !== 4 || !isPlaying || autoScrollCancel) return;
+      
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(1, elapsed / scrollDuration);
+      
+      // smooth easeInOutQuad transition
+      const ease = progress < 0.5 
+        ? 2 * progress * progress 
+        : -1 + (4 - 2 * progress) * progress;
+        
+      list.scrollTop = startScrollTop + (maxScroll - startScrollTop) * ease;
+      
+      if (progress < 1) {
+        autoScrollRAF = requestAnimationFrame(step);
+      }
+    }
+    
+    autoScrollRAF = requestAnimationFrame(step);
+  }, 2500);
+}
+
+function stopEventsAutoScroll() {
+  autoScrollCancel = true;
+  cancelAnimationFrame(autoScrollRAF);
+  const list = document.querySelector('.events-list');
+  if (list) {
+    list.scrollTop = 0;
+  }
 }
 
 

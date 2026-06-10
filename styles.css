@@ -128,9 +128,11 @@ body, html {
 
 /* Scene 4 (Bride & Groom) orbit pan */
 #scene-4::before {
+  background-position: center 12%;
   transform: scale(1.12) translate(-3%, 0);
 }
 #scene-4.active::before {
+  background-position: center 12%;
   transform: scale(1.05) translate(3%, 0);
   transition: transform 9s linear;
 }
