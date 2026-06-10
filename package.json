@@ -1,0 +1,16 @@
+{
+  "name": "wedding-invitation-film",
+  "version": "1.0.0",
+  "description": "Ultra luxury Indian wedding invitation film web application.",
+  "scripts": {
+    "dev": "npx -y http-server -p 3000 -c-1"
+  },
+  "keywords": [
+    "wedding",
+    "invitation",
+    "cinematic",
+    "interactive"
+  ],
+  "author": "Antigravity",
+  "license": "ISC"
+}

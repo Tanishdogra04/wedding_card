@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tanvi & Sachin - Royal Wedding Invitation</title>
+  <meta name="description" content="Cinematic royal wedding invitation of Tanvi & Sachin in Dharamshala, Himachal Pradesh. An ultra-luxury Indian wedding film experience.">
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Marcellus&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Audio elements & Canvas (ambient effects overlay) -->
+  <canvas id="particle-canvas"></canvas>
+  <div class="vignette-overlay"></div>
+
+  <!-- Music & Control Buttons (sticky on top/sides) -->
+  <div class="control-panel">
+    <button id="music-toggle" class="control-btn" aria-label="Toggle music" title="Toggle Sound">
+      <!-- Mute Icon -->
+      <svg id="icon-mute" class="btn-icon hidden" viewBox="0 0 24 24">
+        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.03c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+      </svg>
+      <!-- Play Icon -->
+      <svg id="icon-play" class="btn-icon" viewBox="0 0 24 24">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+      </svg>
+    </button>
+    <button id="playback-toggle" class="control-btn" aria-label="Pause film" title="Pause/Play Film">
+      <svg id="icon-pause" class="btn-icon" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+      <svg id="icon-resume" class="btn-icon hidden" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Progress Bar (at the top) -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="overall-progress"></div>
+  </div>
+
+  <!-- Dot Navigation (on the right) -->
+  <div class="nav-dots" id="nav-dots-container">
+    <!-- Will be populated dynamically by JS -->
+  </div>
+
+  <!-- MAIN SCENE CONTAINER -->
+  <main class="film-container">
+
+    <!-- WELCOME / COVER SCREEN -->
+    <section class="welcome-screen active" id="welcome-screen">
+      <div class="welcome-card">
+        <div class="royal-border"></div>
+        <div class="welcome-content">
+          <div class="shree-ganesha-small">ॐ</div>
+          <h2 class="welcome-invitation">THE WEDDING INVITATION</h2>
+          <h1 class="welcome-couple">Tanvi & Sachin</h1>
+          <p class="welcome-location">Dharamshala, Himachal Pradesh</p>
+          <div class="divider-gold"></div>
+          <button id="enter-btn" class="enter-btn">
+            <span>ENTER INVITATION</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 1 – DIVINE OPENING -->
+    <section class="scene" id="scene-1" style="--scene-bg: url('assets/ganesha.png')">
+      <div class="scene-overlay dark-overlay"></div>
+      <div class="scene-content flex-center text-center zoom-effect">
+        <div class="ganesha-mantra-box">
+          <div class="mantra-sanskrit glow-gold">ॐ श्री गणेशाय नमः</div>
+          <p class="mantra-translation">In auspicious beginning, we bow to the Lord of obstacles and wisdom</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 2 – DHARAMSHALA ESTABLISHING SHOT -->
+    <section class="scene" id="scene-2" style="--scene-bg: url('assets/mountains.png')">
+      <div class="scene-overlay sunrise-overlay"></div>
+      <div class="scene-content flex-center text-center pan-right-effect">
+        <div class="blessings-card glass-panel animate-reveal">
+          <p class="blessings-text uppercase-tracking" style="margin-bottom: 5px;">With the blessings of Lord Ganesha,</p>
+          <p class="blessings-text uppercase-tracking" style="font-size: 0.72rem; color: var(--gold-bright); margin-bottom: 5px;">Smt. Urvashi Dogra W/o Late Sh. Devraj Dogra</p>
+          <p class="blessings-text" style="font-size: 0.82rem; font-style: italic; color: var(--text-secondary); margin-bottom: 20px; text-transform: none; letter-spacing: 0.05em; line-height: 1.6;">solicit your gracious presence and blessings on the auspicious occasion of the marriage ceremony of their loving granddaughter</p>
+          <h2 class="invitation-text-royal" style="margin-top: 10px; margin-bottom: 10px;">The Dogra Family</h2>
+          <p class="blessings-text uppercase-tracking">Cordially Invites You To Celebrate The Wedding Of Their Beloved Children</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 3 – ROYAL PALACE REVEAL -->
+    <section class="scene" id="scene-3" style="--scene-bg: url('assets/arch.png')">
+      <div class="scene-overlay shadow-vignette"></div>
+      <div class="scene-content flex-center text-center zoom-out-effect">
+        <div class="couple-reveal-card animate-reveal">
+          <h1 class="couple-name-calligraphy glow-gold">Tanvi <span class="heart-symbol">❤</span> Sachin</h1>
+          <div class="divider-gold-ornate"></div>
+          <p class="wedding-announcement">Together with their families, invite you to share in their joy</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 4 – BRIDE & GROOM REVEAL -->
+    <section class="scene" id="scene-4" style="--scene-bg: url('assets/couple.png')">
+      <div class="scene-overlay romantic-vignette"></div>
+      <div class="scene-content flex-center text-center pan-left-effect">
+        <div class="bride-groom-card">
+          <div class="bg-card-half left-half">
+            <h2 class="bg-title uppercase-tracking">The Bride</h2>
+            <h1 class="bg-name glow-gold">TANVI</h1>
+            <div class="bg-family-details">
+              <p class="bg-parentage">D/o Smt. Amita Dogra (Meenu) & Sh. Sanjay Dogra</p>
+              <p class="bg-grandparentage">Granddaughter of Smt. Urvashi Dogra & Late Sh. Devraj Dogra</p>
+              <p class="bg-location">Jawahar Nagar, Near HPCA Stadium, Dharamshala</p>
+            </div>
+          </div>
+          <div class="bg-card-amp">&</div>
+          <div class="bg-card-half right-half">
+            <h2 class="bg-title uppercase-tracking">The Groom</h2>
+            <h1 class="bg-name glow-gold">SACHIN</h1>
+            <div class="bg-family-details">
+              <p class="bg-parentage">S/o Smt. Subhlata & Sh. Sunil Kumar</p>
+              <p class="bg-location">Vill. Paloti, P.O. Bane De Hatti, Teh. & Distt. Kangra</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 5 – WEDDING EVENTS TIMELINE -->
+    <section class="scene" id="scene-5" style="--scene-bg: url('assets/pattern.png')">
+      <div class="scene-overlay velvet-green-overlay"></div>
+      <div class="scene-content flex-center text-center scroll-effect">
+        <div class="events-timeline-container glass-panel animate-reveal">
+          <h2 class="timeline-title glow-gold">Wedding Festivities</h2>
+          <div class="timeline-divider"></div>
+          <div class="events-list">
+            <div class="timeline-item">
+              <span class="item-dot"></span>
+              <div class="item-details">
+                <h3>Ladies Sangeet</h3>
+                <p class="item-date-time">Friday, 18th Sept 2026 | 3:00 PM - 5:00 PM</p>
+                <p class="item-subtitle">Venue: At Our Residence</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="item-dot"></span>
+              <div class="item-details">
+                <h3>Dham (Priti Bhoj)</h3>
+                <p class="item-date-time">Saturday, 19th Sept 2026 | 12:30 PM - 4:30 PM</p>
+                <p class="item-subtitle">Venue: Old Hall, Jodhamal Sarin, Depot Bazar, Dharamshala</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="item-dot"></span>
+              <div class="item-details">
+                <h3>Mehndi</h3>
+                <p class="item-date-time">Saturday, 19th Sept 2026 | 6:00 PM onwards</p>
+                <p class="item-subtitle">Venue: At Our Residence</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="item-dot"></span>
+              <div class="item-details">
+                <h3>Maian</h3>
+                <p class="item-date-time">Sunday, 20th Sept 2026 | 6:00 PM</p>
+                <p class="item-subtitle">Venue: Sainik Rest House, Near War Memorial, Dharamshala</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="item-dot"></span>
+              <div class="item-details">
+                <h3>Samuhat / Haldi</h3>
+                <p class="item-date-time">Monday, 21st Sept 2026 | 8:00 AM</p>
+                <p class="item-subtitle">Venue: Sainik Rest House, Dharamshala</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="item-dot"></span>
+              <div class="item-details">
+                <h3>Reception of Barat</h3>
+                <p class="item-date-time">Monday, 21st Sept 2026 | 7:00 PM</p>
+                <p class="item-subtitle">Venue: Sainik Rest House, Near War Memorial</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="item-dot"></span>
+              <div class="item-details">
+                <h3>Shanti Hawan</h3>
+                <p class="item-date-time">Monday, 21st Sept 2026 | 11:00 PM</p>
+                <p class="item-subtitle">Venue: Sainik Rest House, Near War Memorial</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="item-dot"></span>
+              <div class="item-details">
+                <h3>Doli (Vidai)</h3>
+                <p class="item-date-time">Tuesday, 22nd Sept 2026 | 6:00 AM</p>
+                <p class="item-subtitle">Auspicious Farewell</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 6 – VENUE REVEAL -->
+    <section class="scene" id="scene-6" style="--scene-bg: url('assets/venue.png')">
+      <div class="scene-overlay twilight-overlay"></div>
+      <div class="scene-content flex-center text-center zoom-effect">
+        <div class="venue-card glass-panel animate-reveal">
+          <div class="venue-icon-box">
+            <svg class="venue-pin" viewBox="0 0 24 24">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+          <h2 class="venue-label uppercase-tracking">The Venue</h2>
+          <h1 class="venue-name glow-gold">Sainik Rest House</h1>
+          <p class="venue-sub">Near War Memorial</p>
+          <p class="venue-city">Dharamshala, Himachal Pradesh</p>
+          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="maps-btn">
+            <span>VIEW ON MAP</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 7 – GRAND FINALE -->
+    <section class="scene" id="scene-7" style="--scene-bg: url('assets/finale.png')">
+      <div class="scene-overlay warm-glow-overlay"></div>
+      <div class="scene-content flex-center text-center zoom-out-effect">
+        <div class="finale-frame-card">
+          <div class="finale-monogram glow-gold">TS</div>
+          <div class="finale-text-group">
+            <p class="finale-sub uppercase-tracking">The Wedding Of</p>
+            <h1 class="finale-names glow-gold">Tanvi & Sachin</h1>
+            <p class="finale-date">21 September 2026</p>
+            <div class="divider-gold-small"></div>
+            <p class="finale-request">We Request The Honour Of Your Presence</p>
+            <div class="finale-rsvp-group">
+              <p class="rsvp-title">R.S.V.P</p>
+              <p class="rsvp-members">All Dogra Members</p>
+              <p class="rsvp-phone">Mob: 88949-27855, 98169-86566</p>
+              <div class="divider-gold-tiny"></div>
+              <p class="compliments-text">With Best Compliments From:<br>All Relatives & Friends</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

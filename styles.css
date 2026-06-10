@@ -1,0 +1,1099 @@
+/* CSS DESIGN SYSTEM: EMERALD & ANTIQUE GOLD */
+:root {
+  --emerald-black: #06140f;
+  --emerald-deep: #0a231b;
+  --emerald-medium: #11392c;
+  --emerald-glow: #1a4d3d;
+  
+  --gold-dark: #8c6a21;
+  --gold-antique: #c5a059;
+  --gold-bright: #e5c17d;
+  --gold-light: #f6ebd0;
+  --gold-gradient: linear-gradient(135deg, #8c6a21 0%, #c5a059 40%, #e5c17d 70%, #f6ebd0 100%);
+  --gold-text-gradient: linear-gradient(to right, #e5c17d, #c5a059, #8c6a21, #c5a059, #e5c17d);
+  
+  --glass-bg: rgba(10, 35, 27, 0.65);
+  --glass-border: rgba(197, 160, 89, 0.3);
+  --text-primary: #f6ebd0;
+  --text-secondary: rgba(246, 235, 208, 0.75);
+  --text-muted: rgba(246, 235, 208, 0.5);
+}
+
+/* RESET & BASIS */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--emerald-black);
+  color: var(--text-primary);
+  font-family: 'Marcellus', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* BACKGROUND PARTICLE CANVAS & VIGNETTE */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.vignette-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+  background: radial-gradient(circle, transparent 20%, rgba(6, 20, 15, 0.4) 60%, rgba(6, 20, 15, 0.95) 100%);
+}
+
+/* SCENE LAYOUT & ORCHESTRATION */
+.film-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.welcome-screen, .scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.8s;
+  z-index: 1;
+}
+
+.welcome-screen.active, .scene.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+/* PERFORMANT BACKDROP CINEMATIC ACTIONS (KEN BURNS) */
+.scene::before {
+  content: '';
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  background-image: var(--scene-bg);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transform: scale(1.05);
+  transition: transform 8s linear;
+}
+
+/* Scene 1 (Divine Opening) Ken Burns Zoom In */
+#scene-1.active::before {
+  transform: scale(1.18);
+}
+
+/* Scene 2 (Dharamshala Establishing) Drone slow pan and zoom */
+#scene-2::before {
+  transform: scale(1.15) translate(-2%, -2%);
+}
+#scene-2.active::before {
+  transform: scale(1.03) translate(2%, 1%);
+  transition: transform 9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Scene 3 (Palace Reveal) slow zoom out */
+#scene-3::before {
+  transform: scale(1.25);
+}
+#scene-3.active::before {
+  transform: scale(1.08);
+  transition: transform 9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Scene 4 (Bride & Groom) orbit pan */
+#scene-4::before {
+  transform: scale(1.12) translate(-3%, 0);
+}
+#scene-4.active::before {
+  transform: scale(1.05) translate(3%, 0);
+  transition: transform 9s linear;
+}
+
+/* Scene 5 (Timeline) subtle float */
+#scene-5::before {
+  transform: scale(1.02);
+}
+#scene-5.active::before {
+  transform: scale(1.08) rotate(1deg);
+  transition: transform 12s ease-in-out;
+}
+
+/* Scene 6 (Venue) zoom in */
+#scene-6::before {
+  transform: scale(1.03);
+}
+#scene-6.active::before {
+  transform: scale(1.15);
+  transition: transform 9s ease-out;
+}
+
+/* Scene 7 (Finale) slow zoom out */
+#scene-7::before {
+  transform: scale(1.18);
+}
+#scene-7.active::before {
+  transform: scale(1.05);
+  transition: transform 11s cubic-bezier(0.1, 0.8, 0.3, 1);
+}
+
+/* SCENE OVERLAYS (Atmospheric shadows & lighting) */
+.scene-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.dark-overlay {
+  background: linear-gradient(to bottom, rgba(6,20,15,0.7) 0%, rgba(6,20,15,0.4) 50%, rgba(6,20,15,0.85) 100%);
+}
+
+.sunrise-overlay {
+  background: linear-gradient(135deg, rgba(229,193,125,0.1) 0%, rgba(6,20,15,0.3) 55%, rgba(6,20,15,0.75) 100%);
+}
+
+.shadow-vignette {
+  background: radial-gradient(circle, transparent 30%, rgba(6, 20, 15, 0.85) 100%);
+}
+
+.romantic-vignette {
+  background: linear-gradient(to right, rgba(6,20,15,0.8) 0%, rgba(6,20,15,0.2) 50%, rgba(6,20,15,0.8) 100%);
+}
+
+.velvet-green-overlay {
+  background: radial-gradient(circle, rgba(17,57,44,0.4) 0%, rgba(6,20,15,0.92) 100%);
+}
+
+.twilight-overlay {
+  background: linear-gradient(to bottom, rgba(26,77,61,0.15) 0%, rgba(6,20,15,0.5) 60%, rgba(6,20,15,0.9) 100%);
+}
+
+.warm-glow-overlay {
+  background: radial-gradient(circle, rgba(229,193,125,0.08) 0%, rgba(6,20,15,0.9) 95%);
+}
+
+/* CONTENT CONTAINER WRAPPER */
+.scene-content {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 1200px;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* GLASS PANEL UTILITY */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  padding: 40px;
+}
+
+/* SHIMMER TEXT & GOLD TEXT */
+.glow-gold {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(229, 193, 125, 0.25);
+  animation: gold-shimmer 8s ease infinite alternate;
+  background-size: 200% auto;
+}
+
+@keyframes gold-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* TITLE STYLES */
+.uppercase-tracking {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  font-weight: 300;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+}
+
+/* WELCOME COVER SCREEN */
+.welcome-screen {
+  background: radial-gradient(circle, var(--emerald-medium) 0%, var(--emerald-black) 100%);
+}
+
+.welcome-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/pattern.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  mix-blend-mode: color-dodge;
+  pointer-events: none;
+}
+
+.welcome-card {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  padding: 50px 30px;
+  background: rgba(10, 35, 27, 0.85);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(197, 160, 89, 0.15);
+  text-align: center;
+  overflow: hidden;
+  animation: float-card 6s ease-in-out infinite alternate;
+}
+
+@keyframes float-card {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+.royal-border {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 2px solid var(--gold-antique);
+  border-radius: 8px;
+  pointer-events: none;
+}
+.royal-border::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  border-radius: 12px;
+}
+
+.shree-ganesha-small {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 2.2rem;
+  color: var(--gold-bright);
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(229, 193, 125, 0.5);
+}
+
+.welcome-invitation {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-antique);
+  margin-bottom: 15px;
+}
+
+.welcome-couple {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.welcome-location {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.15em;
+  margin-bottom: 30px;
+}
+
+.divider-gold {
+  width: 80px;
+  height: 2px;
+  background: var(--gold-gradient);
+  margin: 0 auto 35px;
+  position: relative;
+}
+.divider-gold::before, .divider-gold::after {
+  content: '◆';
+  color: var(--gold-bright);
+  font-size: 8px;
+  position: absolute;
+  top: -4px;
+}
+.divider-gold::before { left: -10px; }
+.divider-gold::after { right: -10px; }
+
+.enter-btn {
+  background: transparent;
+  border: 1.5px solid var(--gold-antique);
+  color: var(--gold-bright);
+  padding: 14px 35px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.1);
+}
+
+.enter-btn span {
+  position: relative;
+  z-index: 2;
+}
+
+.enter-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: var(--gold-gradient);
+  transform: translate(-50%, -50%) rotate(45deg);
+  z-index: 1;
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.enter-btn:hover {
+  color: var(--emerald-black);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 25px rgba(229, 193, 125, 0.4);
+}
+
+.enter-btn:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+/* SCENE 1 – DIVINE OPENING */
+.mantra-sanskrit {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  letter-spacing: 0.05em;
+}
+
+.mantra-translation {
+  font-family: 'Marcellus', Georgia, serif;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.15em;
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.active .mantra-translation {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.5s ease 1s, transform 1.5s ease 1s;
+}
+
+/* SCENE 2 – DHARAMSHALA */
+.blessings-card {
+  max-width: 650px;
+  border-radius: 16px;
+  box-shadow: inset 0 0 25px rgba(197,160,89,0.08);
+}
+
+.invitation-text-royal {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 2.5rem;
+  color: var(--gold-bright);
+  margin: 20px 0;
+  letter-spacing: 0.1em;
+}
+
+.blessings-text {
+  line-height: 2;
+  font-size: 0.85rem;
+}
+
+/* SCENE 3 – PALACE REVEAL */
+.couple-reveal-card {
+  background: rgba(10, 35, 27, 0.45);
+  border: 1px solid rgba(197, 160, 89, 0.15);
+  padding: 50px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.couple-name-calligraphy {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.heart-symbol {
+  font-size: 3rem;
+  color: var(--gold-bright);
+  display: inline-block;
+  animation: heart-beat 1.5s infinite alternate;
+}
+
+@keyframes heart-beat {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+.divider-gold-ornate {
+  width: 150px;
+  height: 2px;
+  background: var(--gold-gradient);
+  margin: 25px auto;
+  position: relative;
+}
+.divider-gold-ornate::before {
+  content: '❀';
+  color: var(--gold-bright);
+  font-size: 16px;
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: transparent;
+  padding: 0 10px;
+}
+
+.wedding-announcement {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.2em;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* SCENE 4 – BRIDE & GROOM */
+.bride-groom-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  background: rgba(6, 20, 15, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 60px 40px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.bg-card-half {
+  flex: 1;
+  padding: 0 30px;
+}
+
+.left-half {
+  text-align: right;
+  border-right: 1px solid var(--glass-border);
+}
+
+.right-half {
+  text-align: left;
+}
+
+.bg-card-amp {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 3rem;
+  color: var(--gold-bright);
+  margin: 0 20px;
+  flex-grow: 0;
+}
+
+.bg-title {
+  font-size: 0.75rem;
+  margin-bottom: 20px;
+}
+
+.bg-name {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.bg-family-details {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bg-parentage {
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.bg-grandparentage {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.bg-location {
+  font-size: 0.72rem;
+  color: var(--gold-antique);
+  letter-spacing: 0.05em;
+}
+
+/* SCENE 5 – TIMELINE */
+.events-timeline-container {
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+}
+
+.timeline-title {
+  text-align: center;
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.timeline-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--glass-border);
+  margin-bottom: 30px;
+}
+
+.events-list {
+  position: relative;
+  padding-left: 30px;
+  border-left: 2px solid var(--glass-border);
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+/* Custom Gold Scrollbar for events list */
+.events-list::-webkit-scrollbar {
+  width: 4px;
+}
+.events-list::-webkit-scrollbar-track {
+  background: rgba(197, 160, 89, 0.05);
+}
+.events-list::-webkit-scrollbar-thumb {
+  background: var(--gold-antique);
+  border-radius: 2px;
+}
+.events-list::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-bright);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 25px;
+}
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.item-dot {
+  position: absolute;
+  left: -37px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold-antique);
+  border: 2px solid var(--emerald-deep);
+  box-shadow: 0 0 10px var(--gold-bright);
+  transition: all 0.5s ease;
+}
+
+.timeline-item:hover .item-dot {
+  background: var(--gold-bright);
+  transform: scale(1.3);
+  box-shadow: 0 0 15px var(--gold-bright);
+}
+
+.item-details h3 {
+  font-size: 1.15rem;
+  color: var(--gold-bright);
+  letter-spacing: 0.1em;
+  margin-bottom: 5px;
+}
+
+.item-details .item-date-time {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  color: var(--gold-bright);
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(229, 193, 125, 0.25);
+}
+
+.item-details .item-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* SCENE 6 – VENUE */
+.venue-card {
+  max-width: 500px;
+  text-align: center;
+}
+
+.venue-icon-box {
+  margin-bottom: 20px;
+}
+
+.venue-pin {
+  width: 45px;
+  height: 45px;
+  fill: var(--gold-bright);
+  filter: drop-shadow(0 0 8px rgba(229,193,125,0.6));
+  animation: bounce-pin 2s infinite alternate;
+}
+
+@keyframes bounce-pin {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+.venue-label {
+  font-size: 0.75rem;
+  margin-bottom: 10px;
+}
+
+.venue-name {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+.venue-sub {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+
+.venue-city {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 35px;
+}
+
+.maps-btn {
+  display: inline-block;
+  background: var(--gold-gradient);
+  color: var(--emerald-black);
+  border: none;
+  padding: 12px 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.maps-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(229, 193, 125, 0.25);
+  background: linear-gradient(135deg, #f6ebd0 0%, #e5c17d 100%);
+}
+
+/* SCENE 7 – FINALE */
+.finale-frame-card {
+  position: relative;
+  width: 90%;
+  max-width: 550px;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+}
+
+.finale-monogram {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold-bright);
+  border: 1px solid var(--gold-antique);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-bottom: 25px;
+  box-shadow: 0 0 20px rgba(229,193,125,0.25);
+  background: rgba(10,35,27,0.3);
+}
+
+.finale-text-group {
+  color: #0e2b20; /* Draw elegant dark emerald text inside the cream frame! */
+}
+
+.finale-sub {
+  color: #5c4e34; /* Soft dark gold */
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  margin-bottom: 10px;
+}
+
+.finale-names {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4d330c 0%, #8c6a21 50%, #4d330c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.finale-date {
+  font-size: 1.2rem;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  color: #8c6a21;
+  margin-bottom: 15px;
+}
+
+.divider-gold-small {
+  width: 60px;
+  height: 1px;
+  background-color: #8c6a21;
+  margin: 15px auto;
+}
+
+.finale-request {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  color: #5c4e34;
+  line-height: 1.6;
+}
+
+.finale-rsvp-group {
+  margin-top: 15px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  width: 100%;
+}
+
+.finale-rsvp-group .rsvp-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #8c6a21;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.finale-rsvp-group .rsvp-members,
+.finale-rsvp-group .rsvp-phone {
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: #5c4e34;
+  margin-bottom: 1px;
+}
+
+.divider-gold-tiny {
+  width: 30px;
+  height: 0.5px;
+  background-color: rgba(140, 106, 33, 0.4);
+  margin: 6px auto;
+}
+
+.finale-rsvp-group .compliments-text {
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: #5c4e34;
+  line-height: 1.4;
+}
+
+/* NAVIGATION CONTROLS (DOTS, PROGRESS, PANEL) */
+.progress-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(197, 160, 89, 0.1);
+  z-index: 10;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--gold-gradient);
+  transition: width 0.1s linear;
+}
+
+.control-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 15px;
+  z-index: 10;
+}
+
+.control-btn {
+  background: rgba(10, 35, 27, 0.7);
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.control-btn:hover {
+  background: var(--emerald-medium);
+  border-color: var(--gold-bright);
+  transform: scale(1.08);
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--gold-bright);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* VERTICAL DOTS NAVIGATION */
+.nav-dots {
+  position: fixed;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 10;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-antique);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.dot::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  transition: all 0.4s ease;
+}
+
+.dot:hover::after, .dot.active::after {
+  border-color: var(--gold-bright);
+  transform: scale(1.2);
+}
+
+.dot.active {
+  background: var(--gold-gradient);
+  box-shadow: 0 0 10px var(--gold-bright);
+  border-color: transparent;
+}
+
+/* CONTENT REVEAL MICRO-ANIMATIONS */
+.animate-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.6s cubic-bezier(0.215, 0.61, 0.355, 1), transform 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.active .animate-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.active .bride-groom-card {
+  animation: zoom-in-card 2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes zoom-in-card {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* RESPONSIVE CSS */
+@media (max-width: 768px) {
+  .welcome-card {
+    padding: 35px 20px;
+  }
+  
+  .welcome-couple {
+    font-size: 1.9rem;
+  }
+  
+  .mantra-sanskrit {
+    font-size: 2.2rem;
+  }
+  
+  .mantra-translation {
+    font-size: 0.95rem;
+    max-width: 90%;
+  }
+  
+  .invitation-text-royal {
+    font-size: 1.9rem;
+  }
+  
+  .couple-name-calligraphy {
+    font-size: 2.8rem;
+  }
+  
+  .bride-groom-card {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+  
+  .left-half {
+    text-align: center;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 25px;
+    margin-bottom: 20px;
+  }
+  
+  .right-half {
+    text-align: center;
+  }
+  
+  .bg-card-amp {
+    margin: 10px 0;
+    transform: rotate(90deg);
+  }
+  
+  .bg-name {
+    font-size: 2.6rem;
+  }
+  
+  .timeline-title {
+    font-size: 1.8rem;
+  }
+  
+  .venue-name {
+    font-size: 1.8rem;
+  }
+  
+  .finale-frame-card {
+    padding: 30px;
+  }
+  
+  .finale-names {
+    font-size: 1.7rem;
+  }
+  
+  .finale-monogram {
+    width: 60px;
+    height: 60px;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+  }
+  
+  .nav-dots {
+    right: 15px;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-couple {
+    font-size: 1.6rem;
+  }
+  
+  .mantra-sanskrit {
+    font-size: 1.8rem;
+  }
+  
+  .couple-name-calligraphy {
+    font-size: 2.2rem;
+  }
+  
+  .bg-name {
+    font-size: 2.2rem;
+  }
+}
